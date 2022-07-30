@@ -1,4 +1,4 @@
-const { UUIDV4, Model, DataTypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection.js');
 
@@ -14,9 +14,8 @@ Category.init(
     },
     category_name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
-    // define columns
   },
   {
     sequelize,
