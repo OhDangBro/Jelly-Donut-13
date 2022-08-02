@@ -26,10 +26,20 @@ router.get('/:id', (req, res) => {
   // be sure to include its associated Category and Tag data
 });
 
-
+/// TAG POST START ///
 router.post('/', (req, res) => {
-  // create a new tag
+ Tag.create({
+  tag_name: req.body.tag_name
+ })
+ .then(tagData => res.json(tagData))
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
+
+//// TAG POST END ////
+
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
