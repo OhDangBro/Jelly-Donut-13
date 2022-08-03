@@ -18,7 +18,7 @@ router.get('/:id', (req, res) => {
     where: {
       id: req.params.id
     },
-    include: [Category, Tag]
+    include:  [Product]
   }).then((data) =>{
     res.status(200);
   res.json(data);
@@ -40,11 +40,44 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  // update a category by its `id` value
-});
+  Category.update({
+    category_name: req.body.category_name
+  },
+  {
+  where: {
+    id: req.params.id }
+  })
+  .then(categoryData => {
+    if (!categoryData) {
+      res.status(404).json({ message: 'No Category found with that ID.' });
+      return;
+    }
+    res.json(categoryData);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
+})
 
 router.delete('/:id', (req, res) => {
-  // delete a category by its `id` value
-});
+    Category.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(categoryData => {
+      if (!categoryData) {
+        res.status(404).json('No product foind with this current ID');
+        return;
+      }
+      res.json(productData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+  });
+
 
 module.exports = router;
