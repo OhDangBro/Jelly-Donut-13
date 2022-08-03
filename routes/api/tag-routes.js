@@ -80,8 +80,8 @@ router.delete("/:id", (req, res) => {
 				id: req.params.id,
 			},
 		})
-		.then((qtyRemoved) => {
-			res.json(`${qtyRemoved} tag were removed from the database`);
+		.then((tagData) => {
+			res.json(`Tag Removed!`);
 		})
 		.catch((err) => {
 			res.json(err);
