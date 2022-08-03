@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { Tag, Product, Category } = require('../../models');
 
 // The `/api/tags` endpoint
-
+///////////////////FIND ALL TAGS START///////////////////
 router.get('/', (req, res) => {
   Tag.findAll({
     include: [Product]
@@ -11,8 +11,9 @@ router.get('/', (req, res) => {
   res.json(data);
   })
   });
+////////////////////FIND ALL TAGS END///////////////////////
 
-
+///////////////////////FIND TAG BY ID START//////////////
 router.get('/:id', (req, res) => {
   Tag.findOne({
     where: {
@@ -24,28 +25,11 @@ router.get('/:id', (req, res) => {
   })
   // be sure to include its associated Category and Tag data
 });
+///////////////////////FIND TAG BY ID END//////////////
 
-/// TAG POST START ///
-router.get('/:id', async (req, res) => {
-  // find a single tag by its `id`
-  // be sure to include its associated Product data
-  try {
-    const tagData = await Tag.findByPk(req.params.id, {
-      include: [{ model:Product }]
-    });
-    if (!tagData) {
-      res.status(404).json({ message: 'Did not find tag matching this ID.'});
-      return;
-    }
-    res.status(200).json(tagData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-  });
 
-//// TAG POST END ////
 
-/// PUT TAG START ////
+/////////////////////// PUT TAG START //////////////////////////
 router.put('/:id', (req, res) => {
    Tag.update(
       {
@@ -69,7 +53,7 @@ router.put('/:id', (req, res) => {
         res.status(500).json(err);
       });
   });
-/// TAG END ////
+//////////////////// TAG UPDATE END ////////////////////////
 
 ///////////// TAG DELETE START /////////////////
 

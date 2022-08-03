@@ -46,7 +46,6 @@ router.get('/:id', (req, res) => {
             });
             return ProductTag.bulkCreate(productTagIdArr);
           }
-          // if no product tags, err
           res.status(200).json(product);
         })
         .then((productTagIds) => res.status(200).json(productTagIds))
