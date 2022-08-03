@@ -3,7 +3,6 @@ const { Category, Product, Tag } = require('../../models');
 
 // The `/api/categories` endpoint
 
-
 ///// FIND ALL CATEGORIES ///////////////
 router.get('/', (req, res) => {
    Category.findAll({
@@ -13,7 +12,7 @@ router.get('/', (req, res) => {
   res.json(data);
   })
   });
-  //////////FIND ALL CATEGORIES END///////////////
+//////////FIND ALL CATEGORIES END///////////////
 
 ////////// FIND BY CATEGORY ID START //////////////////
 router.get('/:id', (req, res) => {
@@ -27,8 +26,7 @@ router.get('/:id', (req, res) => {
   res.json(data);
   })
 });
-  ///////// FIND BY CATEGORY ID END /////////
-
+///////// FIND BY CATEGORY ID END /////////
 
 ////////////// CREATE CATEGORY START //////////////////////
   router.post('/', async (req, res) => {
@@ -65,28 +63,26 @@ router.put('/:id', (req, res) => {
     res.status(500).json(err);
   });
 })
-
 ////// CATEGORY POST END //////////////////////////
 
-
-router.delete('/:id', (req, res) => {
-    Category.destroy({
+////////// CATEGORY DELETE START /////////////////
+router.delete('/:id', async (req, res) => {
+  // delete a category by its `id` value
+  try {
+    const categoryData = await Category.destroy({
       where: {
         id: req.params.id
       }
-    })
-    .then(categoryData => {
-      if (!categoryData) {
-        res.status(404).json('No product foind with this current ID');
-        return;
-      }
-      res.json(productData);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json(err);
     });
-  });
-
+  if (!categoryData) {
+      res.status(404).json({ message: 'No category with this ID exists!'});
+      return;
+    }
+res.status(200).json(categoryData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+////////// CATEGORY DELETE END /////////////////
 
 module.exports = router;
