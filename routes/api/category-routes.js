@@ -3,6 +3,8 @@ const { Category, Product, Tag } = require('../../models');
 
 // The `/api/categories` endpoint
 
+
+///// FIND ALL CATEGORIES ///////////////
 router.get('/', (req, res) => {
    Category.findAll({
     include: [Product]
@@ -11,8 +13,9 @@ router.get('/', (req, res) => {
   res.json(data);
   })
   });
+  //////////FIND ALL CATEGORIES END///////////////
 
-
+////////// FIND BY CATEGORY ID START //////////////////
 router.get('/:id', (req, res) => {
   Category.findOne({
     where: {
@@ -23,22 +26,25 @@ router.get('/:id', (req, res) => {
     res.status(200);
   res.json(data);
   })
-  // be sure to include its associated Category and Tag data
 });
-  // find one category by its `id` value
-  // be sure to include its associated Product
+  ///////// FIND BY CATEGORY ID END /////////
 
-router.post('/', (req, res) => {
+
+////////////// CREATE CATEGORY START //////////////////////
+  router.post('/', async (req, res) => {
+    // create a new category
   Category.create({
-    category_name: req.params.id
+    category_name: req.body.category_name
   })
-    .then(dbCategoryData => res.json(dbCategoryData))
-    .catch(err => {
-        console.log(err);
-        res.status(500).json(err);
+  .then(categoryData => res.json(categoryData))
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
   });
-});
+  });
+///////////////////CREATE CATEGORY END ////////////
 
+////////////////// CATEGORY POST STRART///////////
 router.put('/:id', (req, res) => {
   Category.update({
     category_name: req.body.category_name
@@ -59,6 +65,9 @@ router.put('/:id', (req, res) => {
     res.status(500).json(err);
   });
 })
+
+////// CATEGORY POST END //////////////////////////
+
 
 router.delete('/:id', (req, res) => {
     Category.destroy({
