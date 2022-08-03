@@ -23,10 +23,7 @@ router.get('/:id', (req, res) => {
     where: {
       id: req.params.id
     },
-    include: {
-      model: Product,
-      attributes: ['product_name', 'price', 'stock', 'category_id']
-    }
+    include: [Category, Tag]
   }).then((data) =>{
     res.status(200);
   res.json(data);
@@ -99,7 +96,7 @@ router.delete('/:id', (req, res) => {
   })
   .then(productData => {
     if (!productData) {
-      res.status(404).json('No product foind with this current ID');
+      res.status(404).json('Sorry, no product found with this current ID');
       return;
     }
     res.json(productData);
