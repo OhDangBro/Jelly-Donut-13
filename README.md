@@ -19,6 +19,12 @@ This project is the backend for an ecommerce site. It is the week-13 challenge f
 ## Installation:  
 Install details by request only
 ### Usage: 
+This is the backend of an ecommerce site. 
+It allows a user to acess a database and search by product, category or tag. A user can also search a product, category or tag by the specific ID assigned to them A user is also able to update or create new products, tags and categories. If a user wants they are also able to delete a product, tag or category from the database. 
+
+#Please use link below to veiw these actions:
+https://drive.google.com/file/d/1ZOFKLthQJ1WrssrewsRwL0hDPehD-_7A/view?usp=sharing
+
  
 
  
